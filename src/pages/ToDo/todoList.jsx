@@ -1,10 +1,10 @@
-import { Done, NotYet } from "../../components/Icon";
+import TodoItem from "./todoItem";
 
 function TodoList() {
   return (
     <main className="m-8">
-      <Done />
-      <NotYet />
+      <TodoItem done={true} text="영어 공부" />
+      <TodoItem done={false} text="리액트 공부하기" />
     </main>
   );
 }
