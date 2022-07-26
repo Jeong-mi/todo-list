@@ -6,7 +6,6 @@ const CheckCircle = styled.div`
 `;
 
 const Text = styled.div`
-  text-align: center;
   padding-left: 15px;
   font-size: 20px;
   flex: 1;
@@ -17,33 +16,30 @@ const Text = styled.div`
     `};
 `;
 
-const Edit = styled.div`
+const Feature = styled.div`
   color: rgb(209 213 219);
   cursor: pointer;
+  margin-right: 10px;
   &:hover {
-    color: #1400ff;
+    color: ${(props) => (props.type === "edit" ? "#1400ff" : "#ff0000")};
   }
 `;
 
-const Remove = styled.div`
-  color: rgb(209 213 219);
-  cursor: pointer;
-  &:hover {
-    color: #ff0000;
-  }
-`;
+const removeTodo = (id) => {
+  console.log(id, "안녕");
+};
 
-function TodoItem({ done, text }) {
+function TodoItem({ id, done, text }) {
   return (
     <section className="flex py-2 place-items-center">
       <CheckCircle>{done ? <YesDone /> : <NotYet />}</CheckCircle>
       <Text done={done}>{text}</Text>
-      <Edit>
+      <Feature type="edit">
         <EditIcon />
-      </Edit>
-      <Remove>
+      </Feature>
+      <Feature type="remove" onClick={() => removeTodo(id)}>
         <RemoveIcon />
-      </Remove>
+      </Feature>
     </section>
   );
 }
