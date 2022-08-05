@@ -7,16 +7,17 @@ const initTodo = [
 ];
 
 function TodoList() {
-  const [todoList, setTodoList] = useState(initTodo);
+  const [todos, setTodos] = useState(initTodo);
 
   return (
     <main className="m-8">
-      {todoList.map((todo) => (
+      {todos.map((todo) => (
         <TodoItem
           key={todo.id}
           id={todo.id}
           done={todo.done}
           text={todo.text}
+          setTodos={setTodos}
         />
       ))}
     </main>
