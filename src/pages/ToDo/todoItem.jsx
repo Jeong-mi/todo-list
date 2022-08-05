@@ -24,8 +24,7 @@ const InputText = styled.input`
   width: 100%;
   background-color: rgb(233, 233, 233);
   border-radius: 5px;
-  outline-color: white;
-  outline-width: 5px;
+  outline: none;
   padding-right: -30px;
 `;
 
@@ -50,9 +49,24 @@ const editTodo = (id, setIsEditing) => {
   setIsEditing((prev) => !prev);
 };
 
+const editText = (e, id, setTodos, setIsEditing) => {
+  if (e.key === "Enter") {
+    setTodos((prev) => {
+      let editedTodos = prev;
+      prev.map((item) => {
+        if (item.id === id) {
+          item.text = e.target.value;
+        }
+      });
+      return editedTodos;
+    });
+
+    setIsEditing(false);
+  }
+};
+
 function TodoItem({ id, done, text, setTodos }) {
   const [isEditing, setIsEditing] = useState(false);
-  const [editText, setEditText] = useState(text);
 
   return (
     <section className="flex py-2 place-items-center">
@@ -61,11 +75,11 @@ function TodoItem({ id, done, text, setTodos }) {
         <Text done={done}>{text}</Text>
       ) : (
         <div className="w-full">
-          <Tooltip content="수정하기 위해선 엔터를 눌러주세요.">
+          <Tooltip content="수정하려면 엔터를 눌러주세요.">
             <InputText
               type="text"
-              onChange={(e) => setEditText(e.target.value)}
               placeholder={text}
+              onKeyPress={(e) => editText(e, id, setTodos, setIsEditing)}
               autoFocus
             />
           </Tooltip>

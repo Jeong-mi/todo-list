@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TodoItem from "./todoItem";
 
 const initTodo = [
@@ -8,6 +8,8 @@ const initTodo = [
 
 function TodoList() {
   const [todos, setTodos] = useState(initTodo);
+
+  useEffect(() => {}, [todos]);
 
   return (
     <main className="m-8">
