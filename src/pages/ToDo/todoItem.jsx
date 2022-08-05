@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled, { css } from "styled-components";
 import { YesDone, NotYet, EditIcon, RemoveIcon } from "../../components/Icon";
-import Tooltip from "../../components/Tooltip";
+import EditText from "./EditText";
 
 const CheckCircle = styled.div`
   cursor: pointer;
@@ -16,16 +16,6 @@ const Text = styled.div`
     css`
       color: rgb(209 213 219);
     `};
-`;
-
-const InputText = styled.input`
-  font-size: 20px;
-  flex: 1;
-  width: 100%;
-  background-color: rgb(233, 233, 233);
-  border-radius: 5px;
-  outline: none;
-  padding-right: -30px;
 `;
 
 const Feature = styled.div`
@@ -49,22 +39,6 @@ const editTodo = (id, setIsEditing) => {
   setIsEditing((prev) => !prev);
 };
 
-const editText = (e, id, setTodos, setIsEditing) => {
-  if (e.key === "Enter") {
-    setTodos((prev) => {
-      let editedTodos = prev;
-      prev.map((item) => {
-        if (item.id === id) {
-          item.text = e.target.value;
-        }
-      });
-      return editedTodos;
-    });
-
-    setIsEditing(false);
-  }
-};
-
 function TodoItem({ id, done, text, setTodos }) {
   const [isEditing, setIsEditing] = useState(false);
 
@@ -74,16 +48,12 @@ function TodoItem({ id, done, text, setTodos }) {
       {!isEditing ? (
         <Text done={done}>{text}</Text>
       ) : (
-        <div className="w-full">
-          <Tooltip content="수정하려면 엔터를 눌러주세요.">
-            <InputText
-              type="text"
-              placeholder={text}
-              onKeyPress={(e) => editText(e, id, setTodos, setIsEditing)}
-              autoFocus
-            />
-          </Tooltip>
-        </div>
+        <EditText
+          id={id}
+          text={text}
+          setTodos={setTodos}
+          setIsEditing={setIsEditing}
+        />
       )}
       <Feature type="edit" onClick={() => editTodo(id, setIsEditing)}>
         <EditIcon />
