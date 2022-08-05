@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --tooltip-text-color: white;
+  --tooltip-background-color: #52734d;
+  --tooltip-margin: 30px;
+  --tooltip-arrow-size: 6px;
+  --tooltip-text-size: 14px;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
