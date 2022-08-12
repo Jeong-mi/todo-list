@@ -43,10 +43,6 @@ function TodoItem({ id, done, todos, setTodos, currentText }) {
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState("");
 
-  useEffect(() => {
-    console.log(todos);
-  }, [value]);
-
   return (
     <section className="flex py-2 place-items-center">
       <CheckCircle>{done ? <YesDone /> : <NotYet />}</CheckCircle>
