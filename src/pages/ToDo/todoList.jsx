@@ -9,7 +9,9 @@ const initTodo = [
 function TodoList() {
   const [todos, setTodos] = useState(initTodo);
 
-  useEffect(() => {}, [todos]);
+  useEffect(() => {
+    console.log(todos);
+  }, [todos]);
 
   return (
     <main className="m-8">
@@ -18,7 +20,8 @@ function TodoList() {
           key={todo.id}
           id={todo.id}
           done={todo.done}
-          text={todo.text}
+          currentText={todo.text}
+          todos={todos}
           setTodos={setTodos}
         />
       ))}

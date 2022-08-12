@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 import { YesDone, NotYet, EditIcon, RemoveIcon } from "../../components/Icon";
 import EditText from "./EditText";
@@ -39,18 +39,26 @@ const editTodo = (id, setIsEditing) => {
   setIsEditing((prev) => !prev);
 };
 
-function TodoItem({ id, done, text, setTodos }) {
+function TodoItem({ id, done, todos, setTodos, currentText }) {
   const [isEditing, setIsEditing] = useState(false);
+  const [value, setValue] = useState("");
+
+  useEffect(() => {
+    console.log(todos);
+  }, [value]);
 
   return (
     <section className="flex py-2 place-items-center">
       <CheckCircle>{done ? <YesDone /> : <NotYet />}</CheckCircle>
       {!isEditing ? (
-        <Text done={done}>{text}</Text>
+        <Text done={done}>{currentText}</Text>
       ) : (
         <EditText
           id={id}
-          text={text}
+          currentText={currentText}
+          value={value}
+          setValue={setValue}
+          todos={todos}
           setTodos={setTodos}
           setIsEditing={setIsEditing}
         />

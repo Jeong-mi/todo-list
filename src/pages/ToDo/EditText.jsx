@@ -1,3 +1,4 @@
+import { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import Tooltip from "../../components/Tooltip";
 
@@ -11,30 +12,41 @@ const InputText = styled.input`
   padding-right: -30px;
 `;
 
-const editText = (e, id, setTodos, setIsEditing) => {
+const editText = (e, setValue, setIsEditing) => {
   if (e.key === "Enter") {
-    setTodos((prev) => {
-      let editedTodos = prev;
-      prev.map((item) => {
-        if (item.id === id) {
-          item.text = e.target.value;
-        }
-      });
-      return editedTodos;
-    });
-
+    setValue(e.target.value);
     setIsEditing(false);
   }
 };
 
-function EditText({ id, text, setTodos, setIsEditing }) {
+function EditText({
+  id,
+  currentText,
+  todos,
+  setTodos,
+  setIsEditing,
+  value,
+  setValue,
+}) {
+  useEffect(() => {
+    setTodos((prev) => {
+      let editedTodos = prev;
+      prev.map((item) => {
+        if (item.id === id) {
+          item.text = value;
+        }
+      });
+      return editedTodos;
+    });
+  }, [value]);
+
   return (
     <div className="w-full">
       <Tooltip content="수정하려면 엔터를 눌러주세요.">
         <InputText
           type="text"
-          placeholder={text}
-          onKeyPress={(e) => editText(e, id, setTodos, setIsEditing)}
+          placeholder={currentText}
+          onKeyPress={(e) => editText(e, setValue, setIsEditing)}
           autoFocus
         />
       </Tooltip>
