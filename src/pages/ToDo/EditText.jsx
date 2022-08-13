@@ -1,4 +1,3 @@
-import { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import Tooltip from "../../components/Tooltip";
 
@@ -6,7 +5,7 @@ const InputText = styled.input`
   font-size: 20px;
   flex: 1;
   width: 100%;
-  background-color: rgb(233, 233, 233);
+  background-color: ${({ theme }) => theme.colors.slate200};
   border-radius: 5px;
   outline: none;
   padding-right: -30px;

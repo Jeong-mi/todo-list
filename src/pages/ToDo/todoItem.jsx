@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled, { css } from "styled-components";
 import { YesDone, NotYet, EditIcon, RemoveIcon } from "../../components/Icon";
 import EditText from "./EditText";
@@ -14,7 +14,7 @@ const Text = styled.div`
   ${(props) =>
     props.done &&
     css`
-      color: rgb(209 213 219);
+      color: ${({ theme }) => theme.colors.gray300};
     `};
 `;
 
@@ -23,7 +23,8 @@ const Feature = styled.div`
   cursor: pointer;
   margin: 0 10px;
   &:hover {
-    color: ${(props) => (props.type === "edit" ? "#1400ff" : "#ff0000")};
+    color: ${({ type, theme }) =>
+      type === "edit" ? theme.colors.edit : theme.colors.remove};
   }
 `;
 
@@ -39,7 +40,7 @@ const editTodo = (id, setIsEditing) => {
   setIsEditing((prev) => !prev);
 };
 
-function TodoItem({ id, done, todos, setTodos, currentText }) {
+function TodoItem({ id, done, setTodos, currentText }) {
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState("");
 
@@ -54,7 +55,6 @@ function TodoItem({ id, done, todos, setTodos, currentText }) {
           currentText={currentText}
           value={value}
           setValue={setValue}
-          todos={todos}
           setTodos={setTodos}
           setIsEditing={setIsEditing}
         />

@@ -1,7 +1,13 @@
 import ToDo from "./pages/ToDo";
+import { ThemeProvider } from "styled-components";
+import theme from "./components/theme";
 
 function App() {
-  return <ToDo />;
+  return (
+    <ThemeProvider theme={theme}>
+      <ToDo />
+    </ThemeProvider>
+  );
 }
 
 export default App;
