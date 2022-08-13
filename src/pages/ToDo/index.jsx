@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import TodoHead from "./todoHead";
 import TodoList from "./todoList";
+import { PlusButton } from "../../components/Button";
 
 const Title = styled.div`
+  ${({ theme }) => theme.fontSizes.xl};
   margin: 32px;
   text-align: center;
-  font-size: 1.25rem;
 `;
 
 function ToDo() {
@@ -15,6 +16,8 @@ function ToDo() {
       <TodoHead />
       <hr />
       <TodoList />
+
+      <PlusButton />
     </div>
   );
 }

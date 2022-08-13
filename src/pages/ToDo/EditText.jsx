@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Tooltip from "../../components/Tooltip";
 
 const InputText = styled.input`
-  font-size: 20px;
+  ${({ theme }) => theme.fontSizes.xl};
   flex: 1;
   width: 100%;
   background-color: ${({ theme }) => theme.colors.slate200};

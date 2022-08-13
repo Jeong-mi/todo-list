@@ -9,17 +9,18 @@ const CheckCircle = styled.div`
 `;
 
 const Text = styled.div`
-  font-size: 20px;
-  flex: 1;
+  ${({ theme }) => theme.fontSizes.xl};
+
   ${(props) =>
     props.done &&
     css`
       color: ${({ theme }) => theme.colors.gray300};
     `};
+  flex: 1;
 `;
 
 const Feature = styled.div`
-  color: rgb(209 213 219);
+  color: ${({ theme }) => theme.colors.gray300};
   cursor: pointer;
   margin: 0 10px;
   &:hover {
