@@ -7,14 +7,13 @@ const Circle = styled.div`
   border-radius: 50%;
   background: ${({ theme }) => theme.colors.plus};
   cursor: pointer;
+  position: relative;
 `;
 
-const IconBlock = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+const IconBlock = styled.span`
+  position: absolute;
+  top: 25%;
+  left: 25%;
 `;
 
 export const PlusButton = () => {
