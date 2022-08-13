@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { maxims, dayOfWeek } from "../../constant";
 import { QuoteLeft, QuoteRight } from "../../components/Icon";
 
-const Maxim = styled.div`
+const Maxim = styled.section`
   display: flex;
   justify-content: space-evenly;
 `;

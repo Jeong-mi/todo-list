@@ -34,7 +34,7 @@ function EditText({
   setValue,
 }) {
   return (
-    <div className="w-full">
+    <details className="w-full">
       <Tooltip content="수정하려면 엔터를 눌러주세요.">
         <InputText
           type="text"
@@ -44,7 +44,7 @@ function EditText({
           autoFocus
         />
       </Tooltip>
-    </div>
+    </details>
   );
 }
 
