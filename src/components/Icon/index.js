@@ -5,6 +5,7 @@ import {
   FaQuoteRight,
   FaMarker,
   FaTrashAlt,
+  FaPlus,
 } from "react-icons/fa";
 
 export function YesDone() {
@@ -29,4 +30,8 @@ export function EditIcon() {
 
 export function RemoveIcon() {
   return <FaTrashAlt className="text-xl" />;
+}
+
+export function PlusIcon() {
+  return <FaPlus className="text-4xl text-white" />;
 }
