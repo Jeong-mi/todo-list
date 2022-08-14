@@ -2,6 +2,8 @@ import styled from "styled-components";
 import TodoHead from "./todoHead";
 import TodoList from "./todoList";
 import { PlusButton } from "../../components/Button";
+import Modal from "../../components/Modal";
+import { useState } from "react";
 
 const Title = styled.h1`
   ${({ theme }) => theme.fontSizes.xl};
@@ -16,6 +18,16 @@ const Figure = styled.figure`
 `;
 
 function ToDo() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const onClick = () => {
+    setIsOpen(true);
+  };
+
+  const onClose = () => {
+    setIsOpen(false);
+  };
+
   return (
     <main className="relative">
       <Title>JM's todo-list</Title>
@@ -24,8 +36,10 @@ function ToDo() {
       <TodoList />
 
       <Figure>
-        <PlusButton />
+        <PlusButton onClick={onClick} />
       </Figure>
+
+      {isOpen && <Modal open={isOpen} onClose={onClose} />}
     </main>
   );
 }

@@ -20,13 +20,16 @@ const colors = {
 const fontSizes = {
   xl: `
     font-size: 1.25rem;
-    line-height: 1.75rem`,
+    line-height: 1.75rem;
+  `,
   xl3: `
     font-size: 1.875rem;
-    line-height: 2.25rem`,
+    line-height: 2.25rem;
+  `,
   xl4: `
     font-size: 2.25rem;
-    line-height: 2.25rem`,
+    line-height: 2.25rem;
+  `,
 };
 
 const theme = { colors, fontSizes };

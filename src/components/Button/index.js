@@ -1,7 +1,7 @@
 import { PlusIcon } from "../Icon";
 import styled from "styled-components";
 
-const Circle = styled.div`
+const Circle = styled.button`
   width: 70px;
   height: 70px;
   border-radius: 50%;
@@ -16,9 +16,9 @@ const IconBlock = styled.span`
   left: 25%;
 `;
 
-export const PlusButton = () => {
+export const PlusButton = ({ onClick }) => {
   return (
-    <Circle>
+    <Circle onClick={onClick}>
       <IconBlock>
         <PlusIcon />
       </IconBlock>
