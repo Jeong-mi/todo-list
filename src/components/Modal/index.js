@@ -1,4 +1,7 @@
+import { useRef } from "react";
 import styled from "styled-components";
+import useOutsideClick from "../../hooks/useOutSideClick";
+import ModalContainer from "./ModalContainer";
 
 const Overlay = styled.div`
   position: fixed;
@@ -33,21 +36,27 @@ const Contents = styled.div`
 `;
 
 function Modal({ onClose }) {
+  const modalRef = useRef(null);
+
   const handleClose = () => {
     onClose?.();
   };
 
+  useOutsideClick(modalRef, handleClose);
+
   return (
-    <Overlay>
-      <ModalWrap>
-        <Contents>
-          <h1> 할 일 추가 </h1>
-          <input placeholder="이 곳에 입력해주세요." />
-          <button>확인</button>
-          <button onClick={handleClose}>취소</button>
-        </Contents>
-      </ModalWrap>
-    </Overlay>
+    <ModalContainer>
+      <Overlay>
+        <ModalWrap ref={modalRef}>
+          <Contents>
+            <h1> 할 일 추가 </h1>
+            <input placeholder="이 곳에 입력해주세요." />
+            <button>확인</button>
+            <button onClick={handleClose}>취소</button>
+          </Contents>
+        </ModalWrap>
+      </Overlay>
+    </ModalContainer>
   );
 }
 
