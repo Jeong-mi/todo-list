@@ -17,9 +17,10 @@ const Overlay = styled.div`
 `;
 
 const ModalWrap = styled.div`
+  display: block;
   width: 75%;
   height: fit-content;
-  border-radius: 15px;
+  border-radius: 30px;
   background: #fff;
   position: absolute;
   top: 50%;
@@ -29,11 +30,6 @@ const ModalWrap = styled.div`
 
 const Contents = styled.div`
   margin: 40px 30px;
-
-  h1 {
-    ${({ theme }) => theme.fontSizes.xl3};
-    font-weight: 600;
-  }
 `;
 
 function Modal({ onClose, children }) {

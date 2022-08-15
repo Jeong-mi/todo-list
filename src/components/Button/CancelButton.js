@@ -10,8 +10,8 @@ const Btn = styled.span`
   margin: 5px;
 `;
 
-const CancelButton = ({ onClose }) => {
-  return <Btn onClick={onClose}>취소</Btn>;
+const CancelButton = ({ onClick }) => {
+  return <Btn onClick={onClick}>취소</Btn>;
 };
 
 export { CancelButton };

@@ -17,7 +17,14 @@ const Figure = styled.figure`
   bottom: 40px;
 `;
 
+const initTodo = [
+  { id: 0, text: "영어 공부", done: true },
+  { id: 1, text: "리액트 공부하기", done: false },
+  { id: 2, text: "빡세게 맛있는 점심 먹기", done: false },
+];
+
 function ToDo() {
+  const [todos, setTodos] = useState(initTodo);
   const [isOpen, setIsOpen] = useState(false);
 
   const onClick = () => {
@@ -33,13 +40,13 @@ function ToDo() {
       <Title>JM's todo-list</Title>
       <TodoHead />
       <hr />
-      <TodoList />
+      <TodoList todos={todos} setTodos={setTodos} />
 
       <Figure>
         <PlusButton onClick={onClick} />
       </Figure>
 
-      {isOpen && <AddTodoModal onClose={onClose} />}
+      {isOpen && <AddTodoModal onClose={onClose} setTodos={setTodos} />}
     </main>
   );
 }

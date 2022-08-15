@@ -9,8 +9,8 @@ const Btn = styled.span`
   margin: 5px;
 `;
 
-const ConfirmButton = () => {
-  return <Btn>확인</Btn>;
+const ConfirmButton = ({ onClick }) => {
+  return <Btn onClick={onClick}>확인</Btn>;
 };
 
 export { ConfirmButton };
