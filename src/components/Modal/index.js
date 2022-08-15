@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useRef } from "react";
 import styled from "styled-components";
 import useOutsideClick from "../../hooks/useOutSideClick";
@@ -41,6 +42,12 @@ function Modal({ onClose }) {
   const handleClose = () => {
     onClose?.();
   };
+
+  useEffect(() => {
+    const $body = document.querySelector("body");
+    $body.style.overflow = "hidden";
+    return () => ($body.style.overflow = "auto");
+  }, []);
 
   useOutsideClick(modalRef, handleClose);
 
