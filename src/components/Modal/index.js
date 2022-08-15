@@ -36,31 +36,28 @@ const Contents = styled.div`
   }
 `;
 
-function Modal({ onClose }) {
+function Modal({ onClose, children }) {
   const modalRef = useRef(null);
 
   const handleClose = () => {
     onClose?.();
   };
 
+  // 모달 창 있을 때 body의 스크롤은 막음
   useEffect(() => {
     const $body = document.querySelector("body");
     $body.style.overflow = "hidden";
     return () => ($body.style.overflow = "auto");
   }, []);
 
+  // 모달 외부 영역 클릭 시 닫힘
   useOutsideClick(modalRef, handleClose);
 
   return (
     <ModalContainer>
       <Overlay>
         <ModalWrap ref={modalRef}>
-          <Contents>
-            <h1> 할 일 추가 </h1>
-            <input placeholder="이 곳에 입력해주세요." />
-            <button>확인</button>
-            <button onClick={handleClose}>취소</button>
-          </Contents>
+          <Contents>{children}</Contents>
         </ModalWrap>
       </Overlay>
     </ModalContainer>

@@ -2,8 +2,8 @@ import styled from "styled-components";
 import TodoHead from "./todoHead";
 import TodoList from "./todoList";
 import { PlusButton } from "../../components/Button";
-import Modal from "../../components/Modal";
 import { useState } from "react";
+import AddTodoModal from "./AddTodoModal";
 
 const Title = styled.h1`
   ${({ theme }) => theme.fontSizes.xl};
@@ -39,7 +39,7 @@ function ToDo() {
         <PlusButton onClick={onClick} />
       </Figure>
 
-      {isOpen && <Modal open={isOpen} onClose={onClose} />}
+      {isOpen && <AddTodoModal onClose={onClose} />}
     </main>
   );
 }
