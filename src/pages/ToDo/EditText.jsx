@@ -2,14 +2,24 @@ import styled from "styled-components";
 import { CancelButton, ConfirmButton } from "../../components/Button";
 import Tooltip from "../../components/Tooltip";
 
+const Form = styled.form`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 const InputText = styled.input`
   ${({ theme }) => theme.fontSizes.xl};
-  flex: 1;
-  width: 100%;
+  width: 95%;
+  padding: 10px;
   background-color: ${({ theme }) => theme.colors.slate200};
   border-radius: 5px;
   outline: none;
-  padding-right: -30px;
+`;
+
+const Div = styled.div`
+  display: flex;
 `;
 
 const editText = (e, id, value, setTodos, setIsEditing) => {
@@ -34,7 +44,7 @@ function EditText({
   setValue,
 }) {
   return (
-    <form className="w-full">
+    <Form className="w-full">
       <Tooltip content="수정하려면 엔터를 눌러주세요.">
         <InputText
           type="text"
@@ -43,15 +53,15 @@ function EditText({
           autoFocus
         />
       </Tooltip>
-      <div>
+      <Div>
         <ConfirmButton
           onClick={(e) => editText(e, id, value, setTodos, setIsEditing)}
         >
           확인
         </ConfirmButton>
         <CancelButton onClick={() => setIsEditing(false)}>취소</CancelButton>
-      </div>
-    </form>
+      </Div>
+    </Form>
   );
 }
 

@@ -64,7 +64,15 @@ function TodoItem({ id, done, setTodos, currentText }) {
         {done ? <YesDone /> : <NotYet />}
       </CheckCircle>
       {!isEditing ? (
-        <Text done={done}>{currentText}</Text>
+        <>
+          <Text done={done}>{currentText}</Text>
+          <Feature type="edit" onClick={() => editTodo(id, setIsEditing)}>
+            <EditIcon />
+          </Feature>
+          <Feature type="remove" onClick={() => removeTodo(id, setTodos)}>
+            <RemoveIcon />
+          </Feature>
+        </>
       ) : (
         <EditText
           id={id}
@@ -75,16 +83,6 @@ function TodoItem({ id, done, setTodos, currentText }) {
           setIsEditing={setIsEditing}
         />
       )}
-      {!isEditing ? (
-        <>
-          <Feature type="edit" onClick={() => editTodo(id, setIsEditing)}>
-            <EditIcon />
-          </Feature>
-          <Feature type="remove" onClick={() => removeTodo(id, setTodos)}>
-            <RemoveIcon />
-          </Feature>
-        </>
-      ) : null}
     </section>
   );
 }

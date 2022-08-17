@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Wrapper = styled.div`
   display: inline-block;
-  width: 100%;
+  width: 80%;
   position: relative;
 `;
 
@@ -13,7 +13,7 @@ const Tip = styled.div`
   font-size: var(--tooltip-text-size);
   font-weight: bold;
   position: absolute;
-  top: -135%;
+  top: -90%;
   box-shadow: 0px 0px 3px 1px rgba(50, 50, 50, 0.4);
   border-radius: 5px;
   padding: 5px;
