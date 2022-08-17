@@ -41,13 +41,28 @@ const editTodo = (id, setIsEditing) => {
   setIsEditing((prev) => !prev);
 };
 
+const toggleTodo = (id, done, setTodos) => {
+  console.log(id, "할일체크표시");
+
+  setTodos((prev) => {
+    return prev.map((item) => {
+      if (item.id === id) {
+        item.done = !done;
+      }
+      return item;
+    });
+  });
+};
+
 function TodoItem({ id, done, setTodos, currentText }) {
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState("");
 
   return (
     <section className="flex py-2 place-items-center">
-      <CheckCircle>{done ? <YesDone /> : <NotYet />}</CheckCircle>
+      <CheckCircle onClick={() => toggleTodo(id, done, setTodos)}>
+        {done ? <YesDone /> : <NotYet />}
+      </CheckCircle>
       {!isEditing ? (
         <Text done={done}>{currentText}</Text>
       ) : (
