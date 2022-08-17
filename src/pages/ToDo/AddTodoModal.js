@@ -1,7 +1,7 @@
 import Modal from "../../components/Modal";
 import { ConfirmButton, CancelButton } from "../../components/Button";
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const InputText = styled.input`
   width: 80%;
@@ -13,6 +13,13 @@ const InputText = styled.input`
 
 function AddTodoModal({ onClose, setTodos }) {
   const [value, setValue] = useState("");
+  const inputElement = useRef(null);
+
+  useEffect(() => {
+    if (inputElement.current) {
+      inputElement.current.focus();
+    }
+  }, []);
 
   function addTodo(e) {
     e.preventDefault();
@@ -32,6 +39,8 @@ function AddTodoModal({ onClose, setTodos }) {
       <form>
         <div className="my-20 text-center">
           <InputText
+            ref={inputElement}
+            autofocus="autofocus"
             onChange={(e) => setValue(e.target.value)}
             placeholder="이 곳에 입력해주세요."
           />
