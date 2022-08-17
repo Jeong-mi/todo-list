@@ -20,6 +20,11 @@ const InputText = styled.input`
 
 const Div = styled.div`
   display: flex;
+  @media screen and (max-width: 970px) {
+    button {
+      width: 76px;
+    }
+  }
 `;
 
 const editText = (e, id, value, setTodos, setIsEditing) => {
