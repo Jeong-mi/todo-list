@@ -75,12 +75,16 @@ function TodoItem({ id, done, setTodos, currentText }) {
           setIsEditing={setIsEditing}
         />
       )}
-      <Feature type="edit" onClick={() => editTodo(id, setIsEditing)}>
-        <EditIcon />
-      </Feature>
-      <Feature type="remove" onClick={() => removeTodo(id, setTodos)}>
-        <RemoveIcon />
-      </Feature>
+      {!isEditing ? (
+        <>
+          <Feature type="edit" onClick={() => editTodo(id, setIsEditing)}>
+            <EditIcon />
+          </Feature>
+          <Feature type="remove" onClick={() => removeTodo(id, setTodos)}>
+            <RemoveIcon />
+          </Feature>
+        </>
+      ) : null}
     </section>
   );
 }

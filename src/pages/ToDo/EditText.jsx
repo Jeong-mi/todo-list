@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { CancelButton, ConfirmButton } from "../../components/Button";
 import Tooltip from "../../components/Tooltip";
 
 const InputText = styled.input`
@@ -12,17 +13,16 @@ const InputText = styled.input`
 `;
 
 const editText = (e, id, value, setTodos, setIsEditing) => {
-  if (e.key === "Enter") {
-    setTodos((prev) => {
-      return prev.map((item) => {
-        if (item.id === id) {
-          item.text = value;
-        }
-        return item;
-      });
+  e.preventDefault();
+  setTodos((prev) => {
+    return prev.map((item) => {
+      if (item.id === id) {
+        item.text = value;
+      }
+      return item;
     });
-    setIsEditing(false);
-  }
+  });
+  setIsEditing(false);
 };
 
 function EditText({
@@ -34,17 +34,24 @@ function EditText({
   setValue,
 }) {
   return (
-    <div className="w-full">
+    <form className="w-full">
       <Tooltip content="수정하려면 엔터를 눌러주세요.">
         <InputText
           type="text"
           placeholder={currentText}
           onChange={(e) => setValue(e.target.value)}
-          onKeyPress={(e) => editText(e, id, value, setTodos, setIsEditing)}
           autoFocus
         />
       </Tooltip>
-    </div>
+      <div>
+        <ConfirmButton
+          onClick={(e) => editText(e, id, value, setTodos, setIsEditing)}
+        >
+          확인
+        </ConfirmButton>
+        <CancelButton onClick={() => setIsEditing(false)}>취소</CancelButton>
+      </div>
+    </form>
   );
 }
 
