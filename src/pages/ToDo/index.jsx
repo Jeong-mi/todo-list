@@ -5,6 +5,7 @@ import { PlusButton } from "../../components/Button";
 import { useState } from "react";
 import AddTodoModal from "./AddTodoModal";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const Title = styled.h1`
   ${({ theme }) => theme.fontSizes.xl};
@@ -31,6 +32,14 @@ function ToDo() {
   const [todos, setTodos] = useState(initTodo);
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("userToken");
+    if (!token) {
+      navigate("/", { replace: true });
+      return;
+    }
+  }, []);
 
   const onClick = () => {
     setIsOpen(true);

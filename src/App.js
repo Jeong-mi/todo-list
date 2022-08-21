@@ -11,7 +11,7 @@ function App() {
       <GlobalStyle />
       <ThemeProvider theme={theme}>
         <Routes>
-          <Route path="/" element={<ToDo />}></Route>
+          <Route path="/" element={<Auth />}></Route>
           <Route path="/todo" element={<ToDo />}></Route>
           <Route path="/auth" element={<Auth />}></Route>
         </Routes>

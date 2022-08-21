@@ -1,5 +1,8 @@
 import styled from "styled-components";
 import { useState } from "react";
+import Api from "../../api";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const Container = styled.main`
   background: #fff;
@@ -55,11 +58,18 @@ const SubmitBtn = styled.button.attrs({
 const ToggleBtn = styled.button``;
 
 function Auth() {
-  const [hasAccount, setHasAccount] = useState(false);
-  const [form, setForm] = useState({
-    email: "",
-    password: "",
-  });
+  const [hasAccount, setHasAccount] = useState(true);
+  const initState = { email: "", password: "" };
+  const [form, setForm] = useState(initState);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("userToken");
+    if (token) {
+      navigate("/todo", { replace: true });
+      return;
+    }
+  }, []);
 
   const updateForm = (e) => {
     setForm((prev) => ({
@@ -78,10 +88,38 @@ function Auth() {
 
   const validateForm = validateEmail(form.email) && validatePW(form.password);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    console.log(hasAccount);
+
+    const resetAction = () => {
+      setForm(initState);
+      e.target.reset();
+    };
+
+    try {
+      if (!hasAccount) {
+        await Api.signUp(form);
+        resetAction();
+        alert("회원가입이 성공했습니다!");
+        return;
+      }
+      const response = await Api.signIn(form);
+      const jwtToken = response.data.access_token;
+      localStorage.setItem("userToken", jwtToken);
+      resetAction();
+      alert("로그인이 성공했습니다!");
+      navigate("/todo");
+    } catch (error) {
+      alert(error.response);
+    }
+  };
+
   return (
     <Container>
       <Title>{hasAccount ? "Login" : "Register"}</Title>
-      <FormContainer>
+      <FormContainer onSubmit={handleSubmit}>
         <InputContainer>
           <label htmlFor="email">Email</label>
           <Input
