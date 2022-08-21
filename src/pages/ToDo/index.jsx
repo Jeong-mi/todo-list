@@ -43,7 +43,7 @@ function ToDo() {
   return (
     <main className="relative">
       <Title>JM's todo-list</Title>
-      <button onClick={() => navigate("/login")}>로그인으로</button>
+      <button onClick={() => navigate("/auth")}>로그인으로</button>
 
       <TodoHead />
       <hr />

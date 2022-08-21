@@ -23,7 +23,7 @@ function TodoHead() {
       <h2 className="mt-3 text-xl text-gray-400">{dayOfWeek[day]}요일</h2>
       <Maxim>
         <QuoteLeft />
-        <p className="font-semibold leading-7 text-center whitespace-pre-wrap">
+        <p className="font-semibold leading-7 text-center whitespace-pre-wrap bg-gradient-to-t from-green-100">
           {maxims[Math.floor(Math.random() * maxims.length)]}
         </p>
         <QuoteRight />
