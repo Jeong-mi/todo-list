@@ -4,8 +4,10 @@ const pixelToRem = (size) => `${size / 16}rem`;
 const colors = {
   gray300: "rgb(209 213 219)",
   gray400: "rgb(156 163 175)",
-  green100: "rgb(220 252 231)",
+  green50: "#F0FDF4",
+  green100: "#D9FFD8",
   green400: "rgb(74 222 128)",
+  green600: "#16A44A",
   slate100: "rgb(241 245 249)",
   slate200: "rgb(226 232 240)",
   tooltip: "#7689fd",

@@ -4,11 +4,15 @@ import TodoList from "./todoList";
 import { PlusButton } from "../../components/Button";
 import { useState } from "react";
 import AddTodoModal from "./AddTodoModal";
+import { useNavigate } from "react-router-dom";
 
 const Title = styled.h1`
   ${({ theme }) => theme.fontSizes.xl};
-  margin: 32px;
-  text-align: center;
+  margin-top: 32px;
+  display: inline-block;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 `;
 
 const Figure = styled.figure`
@@ -26,6 +30,7 @@ const initTodo = [
 function ToDo() {
   const [todos, setTodos] = useState(initTodo);
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   const onClick = () => {
     setIsOpen(true);
@@ -38,6 +43,8 @@ function ToDo() {
   return (
     <main className="relative">
       <Title>JM's todo-list</Title>
+      <button onClick={() => navigate("/login")}>로그인으로</button>
+
       <TodoHead />
       <hr />
       <TodoList todos={todos} setTodos={setTodos} />
