@@ -2,6 +2,7 @@ import Modal from "../../components/Modal";
 import { ConfirmButton, CancelButton } from "../../components/Button";
 import styled from "styled-components";
 import { useEffect, useRef, useState } from "react";
+import Api from "../../api";
 
 const InputText = styled.input`
   width: 80%;
@@ -21,16 +22,23 @@ function AddTodoModal({ onClose, setTodos }) {
     }
   }, []);
 
-  function addTodo(e) {
+  const addTodo = async (e) => {
     e.preventDefault();
-    setTodos((prev) => {
-      const newId = prev[prev.length - 1].id + 1;
-      const newTodo = { id: newId, text: value, done: false };
+    try {
+      await Api.createTodo({ todo: value });
 
-      return [...prev, newTodo];
-    });
-    onClose();
-  }
+      setTodos((prev) => {
+        const newId = prev[prev.length - 1].id + 1;
+        const newTodo = { id: newId, todo: value, isCompleted: false };
+
+        return [...prev, newTodo];
+      });
+      onClose();
+    } catch (error) {
+      console.log(error.response.data);
+      alert(error.response.date.message);
+    }
+  };
 
   return (
     <Modal onClose={onClose}>
@@ -40,7 +48,6 @@ function AddTodoModal({ onClose, setTodos }) {
         <div className="my-20 text-center">
           <InputText
             ref={inputElement}
-            autofocus="autofocus"
             onChange={(e) => setValue(e.target.value)}
             placeholder="이 곳에 입력해주세요."
           />

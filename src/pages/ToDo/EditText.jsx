@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { CancelButton, ConfirmButton } from "../../components/Button";
 import Tooltip from "../../components/Tooltip";
+import Api from "../../api";
 
 const Form = styled.form`
   display: flex;
@@ -27,22 +28,33 @@ const Div = styled.div`
   }
 `;
 
-const editText = (e, id, value, setTodos, setIsEditing) => {
+const editText = async (e, id, value, isCompleted, setTodos, setIsEditing) => {
   e.preventDefault();
-  setTodos((prev) => {
-    return prev.map((item) => {
-      if (item.id === id) {
-        item.text = value;
-      }
-      return item;
+
+  try {
+    await Api.updateTodo(id, {
+      todo: value,
+      isCompleted: isCompleted,
     });
-  });
-  setIsEditing(false);
+
+    setTodos((prev) => {
+      return prev.map((item) => {
+        if (item.id === id) {
+          item.todo = value;
+        }
+        return item;
+      });
+    });
+    setIsEditing(false);
+  } catch (error) {
+    alert(error.response.data.message);
+  }
 };
 
 function EditText({
   id,
-  currentText,
+  currentTodo,
+  isCompleted,
   setTodos,
   setIsEditing,
   value,
@@ -53,14 +65,16 @@ function EditText({
       <Tooltip content="수정하려면 엔터를 눌러주세요.">
         <InputText
           type="text"
-          placeholder={currentText}
+          placeholder={currentTodo}
           onChange={(e) => setValue(e.target.value)}
           autoFocus
         />
       </Tooltip>
       <Div>
         <ConfirmButton
-          onClick={(e) => editText(e, id, value, setTodos, setIsEditing)}
+          onClick={(e) =>
+            editText(e, id, value, isCompleted, setTodos, setIsEditing)
+          }
         >
           확인
         </ConfirmButton>

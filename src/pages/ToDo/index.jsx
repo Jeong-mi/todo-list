@@ -6,6 +6,7 @@ import { useState } from "react";
 import AddTodoModal from "./AddTodoModal";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import Api from "../../api";
 
 const Title = styled.h1`
   ${({ theme }) => theme.fontSizes.xl};
@@ -22,14 +23,8 @@ const Figure = styled.figure`
   bottom: 40px;
 `;
 
-const initTodo = [
-  { id: 0, text: "영어 공부", done: true },
-  { id: 1, text: "리액트 공부하기", done: false },
-  { id: 2, text: "빡세게 맛있는 점심 먹기", done: false },
-];
-
 function ToDo() {
-  const [todos, setTodos] = useState(initTodo);
+  const [todos, setTodos] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -39,6 +34,17 @@ function ToDo() {
       navigate("/", { replace: true });
       return;
     }
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await Api.getTodos();
+        setTodos(res.data);
+      } catch (error) {
+        alert(error.response);
+      }
+    })();
   }, []);
 
   const onClick = () => {

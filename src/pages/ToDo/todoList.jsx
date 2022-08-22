@@ -10,10 +10,10 @@ function TodoList({ todos, setTodos }) {
     <article className="m-8">
       {todos.map((todo) => (
         <TodoItem
-          key={todo.id}
-          id={todo.id}
-          done={todo.done}
-          currentText={todo.text}
+          key={todo?.id}
+          id={todo?.id}
+          isCompleted={todo?.isCompleted}
+          currentTodo={todo?.todo}
           todos={todos}
           setTodos={setTodos}
         />
