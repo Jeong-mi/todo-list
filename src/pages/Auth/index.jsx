@@ -93,7 +93,7 @@ function Auth() {
 
     console.log(hasAccount);
 
-    const resetAction = () => {
+    const resetForm = () => {
       setForm(initState);
       e.target.reset();
     };
@@ -101,18 +101,19 @@ function Auth() {
     try {
       if (!hasAccount) {
         await Api.signUp(form);
-        resetAction();
+        resetForm();
         alert("회원가입이 성공했습니다!");
         return;
       }
-      const response = await Api.signIn(form);
-      const jwtToken = response.data.access_token;
+      const res = await Api.signIn(form);
+      const jwtToken = res.data.access_token;
       localStorage.setItem("userToken", jwtToken);
-      resetAction();
+      resetForm();
       alert("로그인이 성공했습니다!");
       navigate("/todo");
     } catch (error) {
-      alert(error.response);
+      resetForm();
+      alert(error.response.data.message);
     }
   };
 
