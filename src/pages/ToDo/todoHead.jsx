@@ -2,12 +2,6 @@ import styled from "styled-components";
 import { maxims, dayOfWeek } from "../../constant";
 import { QuoteLeft, QuoteRight } from "../../components/Icon";
 
-const Maxim = styled.section`
-  display: flex;
-  justify-content: space-evenly;
-  margin-top: 1.25rem;
-`;
-
 function TodoHead() {
   const today = new Date();
   const year = today.getFullYear();
@@ -33,3 +27,9 @@ function TodoHead() {
 }
 
 export default TodoHead;
+
+const Maxim = styled.section`
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 1.25rem;
+`;

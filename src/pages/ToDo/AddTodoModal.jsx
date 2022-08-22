@@ -1,18 +1,11 @@
-import Modal from "../../components/Modal";
-import { ConfirmButton, CancelButton } from "../../components/Button";
 import styled from "styled-components";
 import { useEffect, useRef, useState } from "react";
+
+import Modal from "../../components/Modal";
+import { ConfirmButton, CancelButton } from "../../components/Button";
 import Api from "../../api";
 
-const InputText = styled.input`
-  width: 80%;
-  height: 100%;
-  padding: 15px;
-  border-radius: 10px;
-  outline: 2px solid ${({ theme }) => theme.colors.gray300};
-`;
-
-function AddTodoModal({ onClose, setTodos }) {
+function AddTodoModal({ onClose, funcTodo }) {
   const [value, setValue] = useState("");
   const inputElement = useRef(null);
 
@@ -25,17 +18,9 @@ function AddTodoModal({ onClose, setTodos }) {
   const addTodo = async (e) => {
     e.preventDefault();
     try {
-      await Api.createTodo({ todo: value });
-
-      setTodos((prev) => {
-        const newId = prev[prev.length - 1].id + 1;
-        const newTodo = { id: newId, todo: value, isCompleted: false };
-
-        return [...prev, newTodo];
-      });
+      Api.createTodo({ todo: value }).then((res) => funcTodo.create(res));
       onClose();
     } catch (error) {
-      console.log(error.response.data);
       alert(error.response.date.message);
     }
   };
@@ -63,3 +48,11 @@ function AddTodoModal({ onClose, setTodos }) {
 }
 
 export default AddTodoModal;
+
+const InputText = styled.input`
+  width: 80%;
+  height: 100%;
+  padding: 15px;
+  border-radius: 10px;
+  outline: 2px solid ${({ theme }) => theme.colors.gray300};
+`;
