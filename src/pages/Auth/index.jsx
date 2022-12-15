@@ -4,6 +4,113 @@ import Api from "../../api";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
+function Auth() {
+  const initState = { email: "", password: "" };
+  const [hasAccount, setHasAccount] = useState(true);
+  const [form, setForm] = useState(initState);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("userToken");
+    if (token) {
+      navigate("/todo", { replace: true });
+      return;
+    }
+  }, []);
+
+  const updateForm = (e) => {
+    setForm((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const resetForm = (e) => {
+    setForm(initState);
+    e.target.reset();
+  };
+
+  const validateEmail = (email) => {
+    return email.includes("@");
+  };
+
+  const validatePW = (password) => {
+    return password.length >= 8;
+  };
+
+  const validateForm = validateEmail(form.email) && validatePW(form.password);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      if (!hasAccount) {
+        await Api.signUp(form);
+        resetForm(e);
+        alert("회원가입이 성공했습니다!");
+        return;
+      }
+
+      const res = await Api.signIn(form);
+      const jwtToken = res.data.access_token;
+      localStorage.setItem("userToken", jwtToken);
+      resetForm(e);
+      alert("로그인이 성공했습니다!");
+      navigate("/todo");
+    } catch (error) {
+      resetForm(e);
+      alert(error.response.data.message);
+    }
+  };
+
+  return (
+    <Container>
+      <Title>{hasAccount ? "Login" : "Register"}</Title>
+      <FormContainer onSubmit={handleSubmit}>
+        <InputContainer>
+          <label htmlFor="email">Email</label>
+          <Input
+            type="email"
+            name="email"
+            placeholder="fake@gmail.com"
+            onChange={(e) => updateForm(e)}
+          />
+        </InputContainer>
+
+        <Alert>
+          {form.email !== "" && !validateEmail(form.email)
+            ? "이메일 형식을 지켜주세요."
+            : ""}
+        </Alert>
+
+        <InputContainer>
+          <label htmlFor="password">Password</label>
+          <Input
+            type="password"
+            name="password"
+            placeholder="********"
+            onChange={(e) => updateForm(e)}
+          />
+        </InputContainer>
+
+        <Alert>
+          {form.password !== "" && !validatePW(form.password)
+            ? "비밀번호 형식을 지켜주세요."
+            : ""}
+        </Alert>
+
+        <SubmitBtn disabled={!validateForm}>Submit</SubmitBtn>
+      </FormContainer>
+
+      <ToggleBtn onClick={() => setHasAccount((prev) => !prev)}>
+        {hasAccount ? "회원가입하러 가기" : "로그인하러 가기"}
+      </ToggleBtn>
+    </Container>
+  );
+}
+
+export default Auth;
+
 const Container = styled.main`
   background: #fff;
   margin: 100px;
@@ -56,111 +163,3 @@ const SubmitBtn = styled.button.attrs({
 `;
 
 const ToggleBtn = styled.button``;
-
-function Auth() {
-  const [hasAccount, setHasAccount] = useState(true);
-  const initState = { email: "", password: "" };
-  const [form, setForm] = useState(initState);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const token = localStorage.getItem("userToken");
-    if (token) {
-      navigate("/todo", { replace: true });
-      return;
-    }
-  }, []);
-
-  const updateForm = (e) => {
-    setForm((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
-  const validateEmail = (email) => {
-    return email.includes("@");
-  };
-
-  const validatePW = (password) => {
-    return password.length >= 8;
-  };
-
-  const validateForm = validateEmail(form.email) && validatePW(form.password);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    console.log(hasAccount);
-
-    const resetForm = () => {
-      setForm(initState);
-      e.target.reset();
-    };
-
-    try {
-      if (!hasAccount) {
-        await Api.signUp(form);
-        resetForm();
-        alert("회원가입이 성공했습니다!");
-        return;
-      }
-      const res = await Api.signIn(form);
-      const jwtToken = res.data.access_token;
-      localStorage.setItem("userToken", jwtToken);
-      resetForm();
-      alert("로그인이 성공했습니다!");
-      navigate("/todo");
-    } catch (error) {
-      resetForm();
-      alert(error.response.data.message);
-    }
-  };
-
-  return (
-    <Container>
-      <Title>{hasAccount ? "Login" : "Register"}</Title>
-      <FormContainer onSubmit={handleSubmit}>
-        <InputContainer>
-          <label htmlFor="email">Email</label>
-          <Input
-            type="email"
-            name="email"
-            placeholder="fake@gmail.com"
-            onChange={(e) => updateForm(e)}
-          />
-        </InputContainer>
-
-        <Alert>
-          {form.email !== "" && !validateEmail(form.email)
-            ? "이메일 형식을 지켜주세요."
-            : ""}
-        </Alert>
-
-        <InputContainer>
-          <label htmlFor="password">Password</label>
-          <Input
-            type="password"
-            name="password"
-            placeholder="********"
-            onChange={(e) => updateForm(e)}
-          />
-        </InputContainer>
-
-        <Alert>
-          {form.password !== "" && !validatePW(form.password)
-            ? "비밀번호 형식을 지켜주세요."
-            : ""}
-        </Alert>
-
-        <SubmitBtn disabled={!validateForm}>Submit</SubmitBtn>
-      </FormContainer>
-
-      <ToggleBtn onClick={() => setHasAccount((prev) => !prev)}>
-        {hasAccount ? "회원가입하러 가기" : "로그인하러 가기"}
-      </ToggleBtn>
-    </Container>
-  );
-}
-
-export default Auth;

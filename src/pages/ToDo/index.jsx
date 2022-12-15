@@ -14,14 +14,6 @@ function ToDo() {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const token = localStorage.getItem("userToken");
-    if (!token) {
-      navigate("/", { replace: true });
-      return;
-    }
-  }, []);
-
   const funcTodo = {
     get: (res) => {
       return setTodos(res.data);
@@ -47,6 +39,12 @@ function ToDo() {
   };
 
   useEffect(() => {
+    const token = localStorage.getItem("userToken");
+    if (!token) {
+      navigate("/", { replace: true });
+      return;
+    }
+
     (async () => {
       try {
         await Api.getTodos().then((res) => funcTodo.get(res));
@@ -56,7 +54,7 @@ function ToDo() {
     })();
   }, []);
 
-  const onClick = () => {
+  const onOpen = () => {
     setIsOpen(true);
   };
 
@@ -73,7 +71,7 @@ function ToDo() {
       <TodoList todos={todos} funcTodo={funcTodo} />
 
       <Figure>
-        <PlusButton onClick={onClick} />
+        <PlusButton onClick={onOpen} />
       </Figure>
 
       {isOpen && <AddTodoModal onClose={onClose} funcTodo={funcTodo} />}

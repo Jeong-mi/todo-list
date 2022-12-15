@@ -1,8 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL:
-    "https://5co7shqbsf.execute-api.ap-northeast-2.amazonaws.com/production",
+  baseURL: "https://pre-onboarding-selection-task.shop/",
 });
 
 instance.interceptors.request.use(
@@ -17,7 +16,7 @@ instance.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
-  }
+  },
 );
 
 instance.interceptors.request.use(
@@ -26,7 +25,7 @@ instance.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
-  }
+  },
 );
 
 export default instance;
